@@ -1,4 +1,4 @@
-# Streamlit — Ensemble Clustering UMKM 
+# Streamlit — Ensemble Clustering UMKM  
 
 Aplikasi ini merupakan implementasi **skenario Ensemble Clustering Unweighted** dari notebook penelitian.
 
