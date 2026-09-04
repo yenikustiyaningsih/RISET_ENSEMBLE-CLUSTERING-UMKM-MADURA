@@ -38,15 +38,6 @@ Profil & Visualisasi Cluster
 - Filter ukuran cluster minimum
 - Multi-Index Validation / Mean Rank
 
-### Yang sengaja tidak dimasukkan
-
-- Fuzzy Partition
-- Fuzzy Entropy
-- Feature Importance
-- Feature Selection
-- Feature Weighting
-- Weighted Voting
-
 ## Struktur
 
 ```text
@@ -93,12 +84,14 @@ Upload file Excel melalui sidebar.
 Untuk data mentah, kolom yang harus tersedia:
 
 ### Numerik
+
 - `Jml. Tenaga Kerja`
 - `Kapasitas Produksi/Thn`
 - `Omset/Thn`
 - `Aset`
 
 ### Kategorikal
+
 - `NIB/SKU`
 - `Sosmed`
 - `Marketplace`
@@ -106,7 +99,7 @@ Untuk data mentah, kolom yang harus tersedia:
 
 Aplikasi juga mengenali workbook preprocessing yang memiliki sheet `MinMax_2896` dengan nama kolom seperti pada notebook.
 
-## Catatan kesesuaian dengan notebook
+## Catatan Kesesuaian dengan Notebook
 
 Implementasi utama mengikuti notebook:
 
@@ -128,8 +121,9 @@ Aplikasi dapat mengunduh:
 `hasil_ensemble_unweighted.xlsx`
 
 dengan sheet:
-- Ensemble_All_K
-- Evaluasi_Ensemble
-- Multi_Index_Ranking
-- Perbandingan_Final
-- Distribusi_Cluster
+
+- `Ensemble_All_K`
+- `Evaluasi_Ensemble`
+- `Multi_Index_Ranking`
+- `Perbandingan_Final`
+- `Distribusi_Cluster`
