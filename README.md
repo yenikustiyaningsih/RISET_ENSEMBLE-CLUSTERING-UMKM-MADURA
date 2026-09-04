@@ -97,7 +97,7 @@ Untuk data mentah, kolom yang harus tersedia:
 - `Marketplace`
 - `Kepemilikan Lahan`
 
-Aplikasi juga mengenali workbook preprocessing yang memiliki sheet `MinMax_2896` dengan nama kolom seperti pada notebook.
+Aplikasi juga mengenali workbook preprocessing yang memiliki sheet `MinMax_2896` dengan nama kolom seperti pada notebook.   
 
 ## Catatan Kesesuaian dengan Notebook
 
@@ -112,11 +112,11 @@ Implementasi utama mengikuti notebook:
 - Hungarian menggunakan K-Means sebagai reference.
 - Majority Voting menggunakan equal vote dan K-Means sebagai tie-break.
 - Evaluasi konsensus menggunakan Gower untuk SC serta ruang evaluasi gabungan untuk DBI/CHI.
-- K final dipilih menggunakan Mean Rank setelah filter ukuran cluster minimum `max(20, 1% × N)`.
+- K final dipilih menggunakan Mean Rank setelah filter ukuran cluster minimum `max(20, 1% × N)`.     
 
 ## Output
 
-Aplikasi dapat mengunduh:
+Aplikasi dapat mengunduh hasil berikut:
 
 `hasil_ensemble_unweighted.xlsx`
 
