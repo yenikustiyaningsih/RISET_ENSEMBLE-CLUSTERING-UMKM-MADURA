@@ -2,6 +2,12 @@
 
 Aplikasi berbasis **Streamlit** untuk implementasi **Ensemble Clustering Unweighted** pada data UMKM. Aplikasi ini merupakan implementasi dari notebook penelitian untuk melakukan clustering menggunakan beberapa algoritma dan menggabungkan hasil clustering melalui **Majority Voting**.
 
+## Demo
+
+Aplikasi dapat diakses secara online melalui:
+
+[**Open Streamlit App**](https://mbkm-ensemble-clustering-umkm-madura.streamlit.app/)
+
 ## Tujuan
 
 Aplikasi ini digunakan untuk melakukan segmentasi UMKM berdasarkan karakteristik usaha menggunakan beberapa metode clustering, kemudian menggabungkan hasil clustering tersebut menjadi satu hasil konsensus.
@@ -208,7 +214,7 @@ File hasil memiliki beberapa sheet:
 
 ## Deployment
 
-Aplikasi dapat dijalankan secara online menggunakan **Streamlit Community Cloud** dengan menghubungkan repository GitHub ini.
+Aplikasi dijalankan secara online menggunakan **Streamlit Community Cloud**.
 
 Main file:
 
