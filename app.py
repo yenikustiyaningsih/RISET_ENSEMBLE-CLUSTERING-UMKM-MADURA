@@ -43,8 +43,11 @@ from src.visualization import (
 _ICON_PATHS = {
     "chart": '<path d="M3 3v18h18"/><path d="M7 16v-4"/><path d="M12 16V8"/><path d="M17 16v-7"/>',
     "flask": '<path d="M9 2h6"/><path d="M10 2v6.34L4.24 18.3A2 2 0 0 0 6 21.5h12a2 2 0 0 0 1.76-3.2L14 8.34V2"/>',
-    "warning": '<path d="M10.3 3.9 2.3 18a2 2 0 0 0 1.7 3h16a2 2 0 0 0 1.7-3l-8-14.1a2 2 0 0 0-3.4 0Z"/>'
-               '<path d="M12 9.5v4"/><path d="M12 17h.01"/>',
+    "target": '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+    "layers": '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>'
+              '<path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/>'
+              '<path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+    "sparkle": '<path d="M9.5 3 8 8 3 9.5 8 11l1.5 5L11 11l5-1.5L11 8Z"/><path d="M19 15l.9 2.6L22.5 18.5 19.9 19.4 19 22l-.9-2.6L15.5 18.5l2.6-.9Z"/>',
 }
 
 
@@ -55,7 +58,7 @@ def svg_icon(name: str, size: int = 20, color: str = "#FFFFFF", stroke_width: fl
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" '
         f'viewBox="0 0 24 24" fill="none" stroke="{color}" stroke-width="{stroke_width}" '
         f'stroke-linecap="round" stroke-linejoin="round" '
-        f'style="vertical-align:-4px;margin-right:8px;">{path}</svg>'
+        f'style="vertical-align:-4px;margin-right:8px;flex-shrink:0;">{path}</svg>'
     )
 
 
@@ -63,7 +66,8 @@ def method_dot(color: str) -> str:
     """Titik warna kecil pengganti emoji bulat sebagai penanda metode base clustering."""
     return (
         f'<span style="display:inline-block;width:10px;height:10px;border-radius:50%;'
-        f'background:{color};margin-right:8px;vertical-align:middle;"></span>'
+        f'background:{color};margin-right:8px;vertical-align:middle;'
+        f'box-shadow:0 0 0 3px {color}22;"></span>'
     )
 
 
@@ -92,9 +96,9 @@ html, body, [class*="css"] {
     font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-/* App background: abu sangat muda supaya kartu putih tetap kontras */
+/* App background: gradasi halus abu-ungu supaya kartu putih makin menonjol */
 [data-testid="stAppViewContainer"] {
-    background: #F5F6FA;
+    background: radial-gradient(1200px 500px at 10% -10%, #EEF0FB 0%, #F5F6FA 45%, #F5F6FA 100%);
 }
 [data-testid="stHeader"] {
     background: rgba(245, 246, 250, 0.0);
@@ -111,30 +115,42 @@ html, body, [class*="css"] {
    ============================================================= */
 .hero-box {
     background: linear-gradient(120deg, #4338CA 0%, #6D28D9 55%, #7C3AED 100%);
-    padding: 2rem 2.4rem;
-    border-radius: 20px;
+    padding: 2.1rem 2.4rem;
+    border-radius: 22px;
     margin-bottom: 1.8rem;
-    box-shadow: 0 10px 30px rgba(76, 29, 149, 0.28);
+    box-shadow: 0 14px 34px rgba(76, 29, 149, 0.30);
     position: relative;
     overflow: hidden;
 }
 .hero-box::after {
     content: "";
     position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 260px;
-    height: 260px;
-    background: rgba(255, 255, 255, 0.08);
+    top: -70px;
+    right: -70px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+.hero-box::before {
+    content: "";
+    position: absolute;
+    bottom: -90px;
+    left: -40px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.0) 70%);
     border-radius: 50%;
     pointer-events: none;
 }
 .hero-box h1 {
     color: #FFFFFF !important;
-    font-size: 2rem;
+    font-size: 2.05rem;
     font-weight: 800;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.55rem 0;
     line-height: 1.25;
+    letter-spacing: -0.01em;
     position: relative;
     z-index: 1;
     display: flex;
@@ -142,25 +158,32 @@ html, body, [class*="css"] {
 }
 .hero-box p {
     color: rgba(255, 255, 255, 0.92) !important;
-    font-size: 1rem;
+    font-size: 1.02rem;
     margin: 0;
     max-width: 640px;
     line-height: 1.55;
     position: relative;
     z-index: 1;
 }
+.hero-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.05rem;
+    position: relative;
+    z-index: 1;
+}
 .hero-pill {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     color: #fff !important;
     padding: 5px 14px;
     border-radius: 999px;
     font-size: 0.78rem;
     font-weight: 600;
-    margin-top: 0.95rem;
     letter-spacing: 0.02em;
-    position: relative;
-    z-index: 1;
+    backdrop-filter: blur(2px);
 }
 
 /* =============================================================
@@ -172,6 +195,11 @@ html, body, [class*="css"] {
     border-radius: 14px;
     padding: 0.95rem 1.1rem 0.75rem 1.1rem;
     box-shadow: 0 2px 10px rgba(20, 20, 43, 0.05);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+[data-testid="stMetric"]:hover {
+    box-shadow: 0 6px 18px rgba(67, 56, 202, 0.14);
+    transform: translateY(-1px);
 }
 [data-testid="stMetricValue"] {
     font-size: 1.6rem;
@@ -255,7 +283,7 @@ html, body, [class*="css"] {
    4. SIDEBAR
    ============================================================= */
 section[data-testid="stSidebar"] {
-    background: #14142B;
+    background: linear-gradient(180deg, #14142B 0%, #191933 100%);
 }
 section[data-testid="stSidebar"] * {
     color: #F3F4F6 !important;
@@ -428,10 +456,13 @@ section[data-testid="stSidebar"] .stButton button {
     border: none;
     color: #FFFFFF !important;
     padding: 0.6rem 1rem;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 section[data-testid="stSidebar"] .stButton button:hover {
     background: linear-gradient(120deg, #7C3AED, #8B5CF6);
     color: #fff !important;
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.45);
+    transform: translateY(-1px);
 }
 section[data-testid="stSidebar"] .stButton button * {
     color: #FFFFFF !important;
@@ -443,6 +474,35 @@ section[data-testid="stSidebar"] .block-container {
 }
 section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     margin-bottom: 0.35rem;
+}
+
+/* Pipeline steps di sidebar dibuat lebih rapi sebagai list bernomor */
+.sidebar-pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.4rem;
+}
+.sidebar-pipeline-step {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.85rem;
+    color: #D1D2E0 !important;
+}
+.sidebar-pipeline-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(124, 58, 237, 0.35);
+    border: 1px solid rgba(124, 58, 237, 0.6);
+    color: #FFFFFF !important;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
 }
 
 /* =============================================================
@@ -474,6 +534,11 @@ div[data-baseweb="menu"] li * {
     border-radius: 10px !important;
     font-weight: 700 !important;
     padding: 0.55rem 1.1rem !important;
+    transition: box-shadow 0.15s ease, transform 0.15s ease !important;
+}
+.stDownloadButton button:hover {
+    box-shadow: 0 6px 16px rgba(67, 56, 202, 0.25) !important;
+    transform: translateY(-1px);
 }
 
 /* =============================================================
@@ -539,6 +604,7 @@ div[data-testid="stVerticalBlock"] > div {
     overflow: hidden;
     border: 1px solid #E5E7EF;
     margin-bottom: 0.8rem;
+    box-shadow: 0 1px 6px rgba(20, 20, 43, 0.04);
 }
 
 /* =============================================================
@@ -599,25 +665,62 @@ hr {
 .feature-card {
     background: #FFFFFF;
     border: 1px solid #E5E7EF;
-    border-radius: 16px;
-    padding: 1.7rem 2rem;
-    box-shadow: 0 3px 14px rgba(20, 20, 43, 0.06);
+    border-radius: 18px;
+    padding: 1.9rem 2.1rem;
+    box-shadow: 0 4px 18px rgba(20, 20, 43, 0.06);
     margin-top: 0.5rem;
 }
 .feature-card h3 {
     color: #1F2937 !important;
     margin-top: 0 !important;
+    margin-bottom: 0.3rem !important;
     display: flex;
     align-items: center;
 }
-.feature-card p {
-    color: #374151 !important;
+.feature-card > p.feature-lead {
+    color: #6B7280 !important;
+    margin: 0 0 1.3rem 0 !important;
+    font-size: 0.95rem;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+.feature-method {
+    background: linear-gradient(160deg, #FAFAFF 0%, #F5F3FF 100%);
+    border: 1px solid #E9E7FB;
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+}
+.feature-method .method-title {
+    font-weight: 700;
+    color: #3730A3;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+}
+.feature-method .method-desc {
+    color: #4B5563;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+.feature-divider-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1.5rem 0 1rem 0;
+    font-weight: 700;
+    color: #1F2937;
+    font-size: 0.98rem;
 }
 .feature-steps {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    margin: 1.1rem 0 1.3rem 0;
 }
 .feature-step {
     background: linear-gradient(120deg, #EEF2FF, #F5F3FF);
@@ -645,6 +748,18 @@ hr {
     flex-shrink: 0;
 }
 
+/* =============================================================
+   13. FOOTER
+   ============================================================= */
+.app-footer {
+    text-align: center;
+    color: #9CA3AF;
+    font-size: 0.82rem;
+    padding-top: 1.2rem;
+    margin-top: 1rem;
+    border-top: 1px solid #E5E7EF;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -654,8 +769,13 @@ hr {
 st.markdown(f"""
 <div class="hero-box">
     <h1>{svg_icon("chart", size=28, color="#FFFFFF")}Ensemble Clustering UMKM</h1>
-    <p>Ensemble Clustering Unweighted — K-Means, K-Prototypes, dan Gower K-Medoids</p>
-    <span class="hero-pill">Hungarian Alignment · Majority Voting · Multi-Index Validation</span>
+    <p>Ensemble Clustering Unweighted — menggabungkan K-Means, K-Prototypes, dan Gower K-Medoids
+    menjadi satu label konsensus yang lebih stabil dan tervalidasi.</p>
+    <div class="hero-pill-row">
+        <span class="hero-pill">Hungarian Alignment</span>
+        <span class="hero-pill">Majority Voting</span>
+        <span class="hero-pill">Multi-Index Validation</span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -691,10 +811,15 @@ with st.sidebar:
 
     st.divider()
     st.markdown("**:material/alt_route: Pipeline**")
-    st.markdown(
-        "1. Data → 2. Preprocessing → 3. Base Clustering → "
-        "4. Hungarian Alignment → 5. Majority Voting → 6. Evaluasi → 7. Profil"
+    pipeline_steps = [
+        "Data", "Preprocessing", "Base Clustering",
+        "Hungarian Alignment", "Majority Voting", "Evaluasi", "Profil",
+    ]
+    steps_html = "".join(
+        f'<div class="sidebar-pipeline-step"><span class="sidebar-pipeline-num">{i}</span>{s}</div>'
+        for i, s in enumerate(pipeline_steps, start=1)
     )
+    st.markdown(f'<div class="sidebar-pipeline">{steps_html}</div>', unsafe_allow_html=True)
     st.divider()
     st.caption("Ensemble Clustering App · Skenario Unweighted")
 
@@ -710,22 +835,28 @@ if uploaded is None:
 
     st.markdown(f"""
 <div class="feature-card">
-    <h3>{svg_icon("flask", size=22, color="#7C3AED")}Aplikasi ini menjalankan skenario <span style="color:#7C3AED;">&nbsp;Unweighted</span></h3>
-    <p>Tiga base clustering yang digunakan:</p>
-    <ol>
-        <li><strong>K-Means</strong> — clustering berbasis jarak Euclidean untuk fitur numerik.</li>
-        <li><strong>K-Prototypes</strong> — kombinasi fitur numerik dan kategorikal sekaligus.</li>
-        <li><strong>Gower K-Medoids</strong> — berbasis matriks jarak Gower untuk data campuran.</li>
-    </ol>
-    <p style="margin-top:1rem;"><strong>Alur proses ensemble:</strong></p>
+    <h3>{svg_icon("flask", size=22, color="#7C3AED")}Skenario Unweighted</h3>
+    <p class="feature-lead">Tiga base clustering digabungkan tanpa pembobotan fitur untuk menghasilkan label konsensus.</p>
+    <div class="feature-grid">
+        <div class="feature-method">
+            <div class="method-title">K-Means</div>
+            <p class="method-desc">Clustering berbasis jarak Euclidean untuk fitur numerik.</p>
+        </div>
+        <div class="feature-method">
+            <div class="method-title">K-Prototypes</div>
+            <p class="method-desc">Kombinasi fitur numerik dan kategorikal sekaligus.</p>
+        </div>
+        <div class="feature-method">
+            <div class="method-title">Gower K-Medoids</div>
+            <p class="method-desc">Berbasis matriks jarak Gower untuk data campuran.</p>
+        </div>
+    </div>
+    <div class="feature-divider-label">{svg_icon("layers", size=18, color="#4338CA")}Alur proses ensemble</div>
     <div class="feature-steps">
         <span class="feature-step"><span class="step-num">1</span>Hungarian Label Alignment</span>
         <span class="feature-step"><span class="step-num">2</span>Majority Voting (Equal Vote)</span>
         <span class="feature-step"><span class="step-num">3</span>Multi-Index Validation</span>
     </div>
-    <blockquote>
-        {svg_icon("warning", size=18, color="#7C3AED")}<span>Fuzzy Entropy, Feature Selection, dan pembobotan fitur <strong>tidak digunakan</strong> pada aplikasi ini.</span>
-    </blockquote>
 </div>
 """, unsafe_allow_html=True)
     st.stop()
@@ -758,8 +889,8 @@ if "results" not in st.session_state:
 # =============================================================
 if run_button:
     with st.status("Menjalankan ensemble clustering...", expanded=True) as status:
-        st.write("1/5 Menjalankan K-Means...")
-        with st.spinner("K-Means K=2..10"):
+        st.write("1/5 Menjalankan Base Clustering (K-Means, K-Prototypes, Gower K-Medoids)...")
+        with st.spinner("Menjalankan K-Means, K-Prototypes, dan Gower K-Medoids untuk K=2..10"):
             base = run_base_clustering(
                 baseline=baseline,
                 typeaware=typeaware,
@@ -1030,3 +1161,5 @@ if res is not None:
         icon=":material/download:",
         use_container_width=True,
     )
+
+st.markdown('<div class="app-footer">Ensemble Clustering UMKM Madura</div>', unsafe_allow_html=True)
