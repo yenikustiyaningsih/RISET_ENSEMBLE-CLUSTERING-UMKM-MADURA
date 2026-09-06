@@ -91,7 +91,7 @@ streamlit_ensemble_unweighted/
 - SciPy
 - Matplotlib
 - Seaborn
-- K-Modes / K-Prototypes
+- K-Prototypes
 - Gower Distance
 - K-Medoids
 
